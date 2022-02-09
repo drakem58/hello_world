@@ -16,9 +16,9 @@ for host_name in mpingfile:
 $ 
 
 $ cat mping_host.out
-r001-ngelinux.com
-r002-ngelinux.com
-r003-ngelinux.com
+jupiter2
+saturn5
+pluto4
 r004-ngelinux.com
 r005-ngelinux.com
 r006-ngelinux.com
@@ -26,13 +26,3 @@ r007-ngelinux.com
 r008-ngelinux.com
 r009-ngelinux.com
 r010-ngelinux.com
-r011-ngelinux.com
-r012-ngelinux.com
-r013-ngelinux.com
-r014-ngelinux.com
-r015-ngelinux.com
-r016-ngelinux.com
-r017-ngelinux.com
-r018-ngelinux.com
-r019-ngelinux.com
-r020-ngelinux.com
