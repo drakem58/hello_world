@@ -1,0 +1,49 @@
+#!/bin/ksh
+
+# purpose of this script is to send Solaris system parameter data
+# to bthsalounge admin server.  In turn that server sends all files
+# recieved to SUN Microsystems, who in turn reviews it through scripts
+# then sends back recommendations for improvment like swap space increases
+# setting permissions on /var/crash
+#
+# Sleep to stagger connections to bthsalounge for 0-30 minutes.
+#
+
+usage(){ print -u2 "\n$0 [-d installdir]\n"; }
+
+export INSTDIR=/usr/local
+export HOSTNAME=$(/sbin/uname -n)
+export INSTLOG=/var/log/autoinst
+
+while getopts d: opt;  
+do
+   case $opt in
+      d) INSTDIR=$OPTARG;;
+      *) usage; exit 1;;
+   esac
+done
+
+
+TMPDIR=/tmp/autoinst
+
+rm -rf $TMPDIR
+mkdir $TMPDIR
+date >>$INSTLOG
+ftp -n bthsalounge <<EOF >>$INSTLOG 2>&1
+user ftp autoinst@$HOSTNAME
+cd /autoinst_oneoff
+lcd $TMPDIR
+bin
+prompt
+mget *
+quit
+EOF
+
+cd $TMPDIR
+for f in $(ls install-* 2>/dev/null) ; 
+do
+   chmod 744 ./$f
+   ./$f
+done
+
+exit 0
